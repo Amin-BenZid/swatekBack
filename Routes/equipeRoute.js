@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { verifyAdminToken } = require("../Controllers/authorization");
 const multer = require("multer");
-const partenairesController = require("../Controllers/partenairesController");
+const { verifyAdminToken } = require("../Controllers/authorization");
+const equiprController = require("../Controllers/equiprController");
 
 // mumter config
 const storage = multer.diskStorage({
@@ -25,13 +25,16 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({ storage, fileFilter });
 
-// get Partenaires
-router.get("/get", partenairesController.getPartenaires);
-// add partenaires
-router.post("/add", verifyAdminToken, upload.single("logo"), partenairesController.addPartenaire);
-// edit partenaires
-router.patch("/edit/:id", verifyAdminToken, partenairesController.editPartenaire);
-// delete partenaires
-router.delete("/delete/:name", verifyAdminToken, partenairesController.deletePartenaires);
+// get equipe
+router.get("/get", equiprController.getEquipes);
+
+// add memebr
+router.post("/add", verifyAdminToken, upload.single("photo"), equiprController.addMember);
+
+// edit member
+router.patch("/edit/:id", verifyAdminToken, equiprController.editMember);
+
+// delete member
+router.delete("/delete/:id", verifyAdminToken, equiprController.deleteMember);
 
 module.exports = router;

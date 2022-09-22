@@ -58,3 +58,21 @@ exports.delete = async (req, res) => {
     res.send({ error: err.message });
   }
 };
+// edit
+exports.edit = async (req, res) => {
+  try {
+    Actualites.findOneAndUpdate(
+      { _id: req.params.id },
+      { title: req.body.name, paragraph: req.body.description },
+      (err, data) => {
+        if (err) {
+          res.status(400).send({ error: err.message });
+        } else {
+          res.status(200).send({ data: data });
+        }
+      }
+    );
+  } catch (err) {
+    res.status(400).send({ error: err.message });
+  }
+};

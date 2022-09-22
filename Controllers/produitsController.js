@@ -9,7 +9,7 @@ exports.addProduit = async (req, res, next) => {
       ProduitDes: req.body.description,
     });
     if (newProduit) {
-      res.send({ result: "Produit is add successfully", newProduit: newProduit }).status(200);
+      res.send({ result: "Produit is added successfully", newProduit: newProduit }).status(200);
     }
   } catch (err) {
     res.status(400);
@@ -43,5 +43,23 @@ exports.deleteProduit = async (req, res, next) => {
   } catch (err) {
     res.status(400);
     res.send({ error: err.message });
+  }
+};
+// edit produit
+exports.editProduit = async (req, res, next) => {
+  try {
+    Produits.findOneAndUpdate(
+      { _id: req.params.id },
+      { ProduitName: req.body.name, ProduitDes: req.body.description },
+      (err, data) => {
+        if (err) {
+          res.status(400).send({ error: err.message });
+        } else {
+          res.status(200).send({ data: data });
+        }
+      }
+    );
+  } catch (err) {
+    res.status(400).send({ error: err.message });
   }
 };

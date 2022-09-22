@@ -1,22 +1,15 @@
 const Contact = require("../Models/contactModel");
 
 exports.addContact = async (req, res, next) => {
-  //   new contact data
-  const name = req.body.name;
-  const email = req.body.email;
-  const phoneNumber = req.body.phoneNumber;
-  const location = req.body.location;
-  const sujet = req.body.sujet;
-  const message = req.body.message;
   //   add
   try {
     const newContact = await Contact.create({
-      name: name,
-      email: email,
-      phoneNumber: phoneNumber,
-      location: location,
-      sujet: sujet,
-      message: message,
+      name: req.body.name,
+      email: req.body.email,
+      phoneNumber: req.body.phoneNumber,
+      location: req.body.location,
+      sujet: req.body.sujet,
+      message: req.body.message,
     });
     if (newContact) {
       res.send({ result: "Produit is add successfully", newContact: newContact }).status(200);
@@ -34,6 +27,21 @@ exports.getContact = async (req, res, next) => {
     const findContact = await Contact.find();
     if (findContact) {
       res.send({ findContact: findContact }).status(200);
+    }
+  } catch (err) {
+    res.status(400);
+    res.send({ error: err.message });
+  }
+};
+
+// delete Contact
+exports.deleteContact = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const deletePartenaires = await Contact.findOneAndDelete({ _id: id });
+    if (deletePartenaires) {
+      res.send({ result: "contact is deleted successfully", deleteData: deletePartenaires }).status(200);
     }
   } catch (err) {
     res.status(400);

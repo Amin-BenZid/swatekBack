@@ -32,6 +32,8 @@ router.get("/one/:id", actualites.getOne);
 
 // post actualites
 router.post("/add", verifyAdminToken, multipleUpload, actualites.add);
+// edit act
+router.patch("/edit/:id", verifyAdminToken, actualites.edit);
 // delete actualites
 router.delete("/delete/:id", verifyAdminToken, actualites.delete);
 

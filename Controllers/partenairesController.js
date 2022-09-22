@@ -11,7 +11,7 @@ exports.addPartenaire = async (req, res, next) => {
       partenairesDes: req.body.description,
     });
     if (newPartenaire) {
-      res.send({ result: "partenaires is add successfully", newPartenaire: newPartenaire }).status(200);
+      res.send({ result: "partenaires is added successfully", newPartenaire: newPartenaire }).status(200);
     }
   } catch (err) {
     res.status(400);
@@ -45,5 +45,24 @@ exports.deletePartenaires = async (req, res, next) => {
   } catch (err) {
     res.status(400);
     res.send({ error: err.message });
+  }
+};
+
+// edit part
+exports.editPartenaire = async (req, res, next) => {
+  try {
+    Partenaires.findOneAndUpdate(
+      { _id: req.params.id },
+      { partenairesName: req.body.name, partenairesDes: req.body.description },
+      (err, data) => {
+        if (err) {
+          res.status(400).send({ error: err.message });
+        } else {
+          res.status(200).send({ data: data });
+        }
+      }
+    );
+  } catch (err) {
+    res.status(400).send({ error: err.message });
   }
 };

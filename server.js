@@ -7,6 +7,7 @@ const newProduitRoute = require("./Routes/newProduitRoute");
 const newContactRoute = require("./Routes/newContactRoute");
 const loginRoute = require("./Routes/loginRoute");
 const actualitesRoute = require("./Routes/actualitesRoute");
+const equipeRoute = require("./Routes/equipeRoute");
 
 const DB_URL = process.env.DB_URL;
 const DB_NAME = process.env.DB_NAME;
@@ -28,10 +29,6 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-// home page
-app.get("/api/", (req, res) => {
-  res.send({ welcome: "welcome" });
-});
 // partenaires
 app.use("/api/partenaires", newPartenairesRoute);
 
@@ -43,6 +40,9 @@ app.use("/api/contact", newContactRoute);
 
 // actualites
 app.use("/api/actualites", actualitesRoute);
+
+// equipe
+app.use("/api/equipe", equipeRoute);
 
 // login
 app.use("/api/admin", loginRoute);

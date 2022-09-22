@@ -25,11 +25,13 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({ storage, fileFilter });
 
-// get Partenaires
+// get prduit
 router.get("/get", produitsController.getProduit);
-// add partenaires
+// add prduit
 router.post("/add", verifyAdminToken, upload.single("logo"), produitsController.addProduit);
-
+// edit prduit
+router.patch("/edit/:id", verifyAdminToken, produitsController.editProduit);
+// delete prduit
 router.delete("/delete/:name", verifyAdminToken, produitsController.deleteProduit);
 
 module.exports = router;
