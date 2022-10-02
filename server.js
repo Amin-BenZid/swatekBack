@@ -30,6 +30,9 @@ mongoose
   .catch((err) => console.log(err));
 
 // partenaires
+app.use("/api", (req, res) => {
+  res.send("AAAAA");
+});
 app.use("/api/partenaires", newPartenairesRoute);
 
 // pruidts
@@ -47,9 +50,9 @@ app.use("/api/equipe", equipeRoute);
 // login
 app.use("/api/admin", loginRoute);
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("..Front/swatek/build"));
+  app.use(express.static("../Front/swatek/build"));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "sms-swatek", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "..", "Front", "swatek", "build", "index.html"));
   });
 }
 
