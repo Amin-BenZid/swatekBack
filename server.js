@@ -46,6 +46,12 @@ app.use("/api/equipe", equipeRoute);
 
 // login
 app.use("/api/admin", loginRoute);
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("..Front/swatek/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "sms-swatek", "build", "index.html"));
+  });
+}
 
 // connecting to server
 app.listen(PORT, () => {
